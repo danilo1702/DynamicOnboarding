@@ -37,13 +37,8 @@ public struct OnboardingView: View {
                         }
                     }.padding()
                     Spacer()
-                    VStack {
-                        PageControl(currentPage: $information.selection, pageCount: information.arrayView.count, colorControl: modelView.colorActiveControl)
-                        showButtons(modelView.actionsButtons ?? [])
-                    }
-                    .frame(height: 100)
-                    .padding(10)
-                }
+                    
+                }.padding(.bottom, 40)
             }
         }.ignoresSafeArea()
     }
@@ -67,48 +62,12 @@ public extension OnboardingView {
         ForEach(modelView.downText ?? [], id: \.self) {
             text in
             Text(text.text ?? "")
-                .padding(.horizontal, 24)
+                .padding(.init(top: 3, leading: 24, bottom: 0, trailing: 24))
                 .foregroundColor(text.foregroundColor)
                 .font(text.font)
                 .multilineTextAlignment(.center)
                 .frame(alignment: text.alignText ?? .center)
         }
-    }
-    
-    @ViewBuilder
-    func showButtons(_ buttons: [ButtonsOnBoarding]) -> some View {
-        HStack {
-            ForEach(buttons, id: \.self) { button in
-                if button.position == .second {
-                    Spacer()
-                }
-                Button {
-                    switch button.buttonType {
-                        case .nextPage:
-                            return information.selection += 1
-                        case .previousPage:
-                            return information.selection -= 1
-                        default:
-                            break
-                    }
-                } label: {
-                    Text(button.text?.text ?? "")
-                        .frame(alignment: button.text?.alignText ?? .center)
-                        .foregroundColor(button.text?.foregroundColor)
-                        .font(button.text?.font)
-                    if let icon = button.icon {
-                        icon.resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(button.iconTint)
-                    }
-                }.padding()
-                    .background(button.backgroundColor)
-                if button.position == .first {
-                    Spacer()
-                }
-            }
-        }
-        .frame(width: UIScreen.main.bounds.width,height: 33, alignment: .trailing)
     }
 }
 

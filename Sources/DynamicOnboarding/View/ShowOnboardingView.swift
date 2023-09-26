@@ -15,6 +15,8 @@ public struct ShowOnboardingView: View {
     public var body: some View {
         ZStack {
             
+            
+            
             TabView(selection: $information.selection) {
                 ForEach(information.arrayView, id: \.modelView.id) { view in
                     view
@@ -22,8 +24,16 @@ public struct ShowOnboardingView: View {
                         .environmentObject(information)
                         .tag(view.tag)
                 }
+                
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            
+            VStack {
+                Spacer()
+                PageControl().environmentObject(information)
+                ButtonsOnboardingView().environmentObject(information)
+            }.padding(.init(top: 0, leading: 15, bottom: 30, trailing: 15))
+            
         }.ignoresSafeArea()
     }
 }
