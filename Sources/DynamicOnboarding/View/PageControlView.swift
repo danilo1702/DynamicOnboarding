@@ -9,9 +9,8 @@ import SwiftUI
 
 public struct PageControl: View {
     
-
     @EnvironmentObject public var information : InformationOnboarding
-
+    
     public var body: some View {
         HStack {
             ForEach(0..<information.arrayView.count, id: \.self) { page in
@@ -23,6 +22,7 @@ public struct PageControl: View {
                     }
             }
         }
-        
+        .padding(5)
+        .background(.white.opacity(0.001))
     }
 }

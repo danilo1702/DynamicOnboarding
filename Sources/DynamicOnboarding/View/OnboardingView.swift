@@ -13,33 +13,29 @@ public struct OnboardingView: View {
     public var tag: Int
     @EnvironmentObject public var information: InformationOnboarding
     
-   public init(modelView: OnBoardingModel, tag: Int) {
+    public init(modelView: OnBoardingModel, tag: Int) {
         self.modelView = modelView
         self.tag = tag
     }
     public var body: some View {
         ZStack {
             modelView.backgroundColor
+            
             VStack(alignment: .trailing){
-                if let topView = modelView.topView {
-                    VStack(alignment: .trailing) {
-                        topView.padding(.top, UIScreen.main.bounds.height * 0.03)
-                    }
-                }
+                ButtonsOnboardingView(locationView: .top)
+                    .frame(alignment: .trailing)
+                    .padding(.top, UIScreen.main.bounds.height * 0.03)
+                    .padding(.trailing, 16)
+                
                 VStack {
                     Spacer()
                     showImages()
                     Spacer()
                     showTexts()
-                    VStack(alignment: .center) {
-                        if let inferiorView = modelView.inferiorView {
-                            inferiorView.frame(height: 30, alignment: .center)
-                        }
-                    }.padding()
+                    ButtonsOnboardingView(locationView: .inferior).frame(height: 30, alignment: .center).padding()
                     Spacer()
-                    
-                }.padding(.bottom, 40)
-            }
+                }.padding(.bottom, 54)
+            }.padding()
         }.ignoresSafeArea()
     }
 }
@@ -74,42 +70,5 @@ public extension OnboardingView {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         MockInformation.arrayView[0].environmentObject(InformationOnboarding(arrayView:  MockInformation.arrayView))
-    }
-}
-
-
-public struct MockTopView: View {
-    public var foregroundColor: Color
-    public init(foregroundColor: Color) {
-        self.foregroundColor = foregroundColor
-    }
-    public var body: some View {
-        
-        HStack {
-         Spacer()
-            Button {
-                print("OMITIR")
-            } label: {
-                Text("OMITIR")
-                    .foregroundColor(foregroundColor)
-            }
-        }.padding()
-        
-    }
-}
-public struct MockInferiorView: View {
-    public init() {  }
-    public var body: some View {
-        VStack {
-            
-            Button {
-                print("Comenzamossss")
-            } label: {
-                Text("Comencemos!!")
-                    .foregroundColor(.white)
-            }.padding()
-                .background(Color.blue.opacity(0.4))
-                .cornerRadius(18)
-        }
     }
 }

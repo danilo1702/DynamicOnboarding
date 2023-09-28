@@ -8,27 +8,21 @@
 import Foundation
 import SwiftUI
 
-public struct OnBoardingModel: Identifiable, Hashable {
+public struct OnBoardingModel:  Hashable {
     
     public var id: UUID = UUID()
     public var backgroundColor: Color?
     public var colorActiveControl: Color
-    public var topView: AnyView?
     public var centerImage: [ImageInformation]?
     public var downText: [OnboardingText]?
-    public var inferiorView: AnyView?
     public var actionsButtons: [ButtonsOnBoarding]?
-    public var lottieView: AnyView?
     
-    public init(backgroundColor: Color? = nil, colorActiveControl: Color = .blue, topView: AnyView?, centerImage: [ImageInformation]? = nil, downText: [OnboardingText]? = nil, inferiorView: AnyView? = nil, actionsButtons: [ButtonsOnBoarding]? = nil, lottieView: AnyView? = nil) {
+    public init(backgroundColor: Color? = nil, colorActiveControl: Color = .blue, centerImage: [ImageInformation]? = nil, downText: [OnboardingText]? = nil, actionsButtons: [ButtonsOnBoarding]? = nil) {
         self.backgroundColor = backgroundColor
         self.colorActiveControl = colorActiveControl
-        self.topView = topView
         self.centerImage = centerImage
         self.downText = downText
-        self.inferiorView = inferiorView
         self.actionsButtons = actionsButtons
-        self.lottieView = lottieView
     }
     public static func == (lhs: OnBoardingModel, rhs: OnBoardingModel) -> Bool {
         lhs.id == rhs.id
@@ -38,7 +32,8 @@ public struct OnBoardingModel: Identifiable, Hashable {
     }
 }
 
-public struct ImageInformation: Identifiable, Hashable {
+public struct ImageInformation: Hashable {
+    
     public var id: UUID = UUID()
     public var image: String
     public var width: CGFloat
@@ -61,9 +56,10 @@ public struct ImageInformation: Identifiable, Hashable {
     }
 }
 
-public struct OnboardingText: Identifiable, Hashable {
+public struct OnboardingText: Hashable {
+    
     public var id: UUID = UUID()
-    public var text: String? = ""
+    public var text: String?
     public var font: Font?
     public var foregroundColor: Color? = .blue
     public var alignText: Alignment?
@@ -80,24 +76,27 @@ public struct OnboardingText: Identifiable, Hashable {
     }
 }
 
-public struct ButtonsOnBoarding: Identifiable, Hashable {
-    
+public struct ButtonsOnBoarding:  Hashable {
     
     public var id: UUID = UUID()
     public var text: OnboardingText?
     public var backgroundColor: Color?
+    public var cornerRadius: CGFloat?
     public var icon: Image?
     public var iconTint: Color?
     public var position: PositionButton?
+    public var location: ButtonLocation
     public var buttonType: ButtonType?
-    public var action: ()?
+    public var action: (() -> ())?
     
-    public init(text: OnboardingText? = nil, backgroundColor: Color? = nil, icon: Image? = nil, iconTint: Color? = nil, position: PositionButton? = nil, buttonType: ButtonType? = nil, action: ()? = nil) {
+    public init(text: OnboardingText? = nil, backgroundColor: Color? = nil, cornerRadius: CGFloat? = nil, icon: Image? = nil, iconTint: Color? = nil, position: PositionButton? = nil, location: ButtonLocation, buttonType: ButtonType? = nil, action: (() -> ())? = nil) {
         self.text = text
         self.backgroundColor = backgroundColor
+        self.cornerRadius = cornerRadius
         self.icon = icon
         self.iconTint = iconTint
         self.position = position
+        self.location = location
         self.buttonType = buttonType
         self.action = action
         
@@ -113,8 +112,18 @@ public struct ButtonsOnBoarding: Identifiable, Hashable {
 public enum ButtonType {
     case nextPage
     case previousPage
+    case skip
+    case action
 }
+
 public enum PositionButton {
     case first
     case second
+    case center
+}
+
+public enum ButtonLocation {
+    case top
+    case inferior
+    case tabView
 }
