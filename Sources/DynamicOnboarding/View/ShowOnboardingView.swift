@@ -22,7 +22,7 @@ public struct ShowOnboardingView: View {
                         .environmentObject(information)
                         .tag(view.tag)
                 }
-            }.ignoresSafeArea()
+            }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             
             VStack {
