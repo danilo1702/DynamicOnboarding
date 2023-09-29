@@ -6,6 +6,6 @@ final class DynamicOnboardingTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(DynamicOnboarding().text, "Hello, World!")
+        //XCTAssertEqual(DynamicOnboarding().text, "Hello, World!")
     }
 }

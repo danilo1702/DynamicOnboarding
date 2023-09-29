@@ -15,7 +15,7 @@ public struct ShowOnboardingView: View {
     }
     public var body: some View {
         ZStack {
-            Color("\(String(describing: information.arrayView[information.selection].modelView.backgroundColor))")
+             information.arrayView[information.selection].modelView.backgroundColor
             TabView(selection: $information.selection) {
                 ForEach(information.arrayView, id: \.modelView.id) { view in
                     view.ignoresSafeArea()
