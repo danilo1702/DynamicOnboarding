@@ -17,7 +17,7 @@ public struct ShowOnboardingView: View {
         ZStack {
             TabView(selection: $information.selection) {
                 ForEach(information.arrayView, id: \.modelView.id) { view in
-                    view
+                    view.ignoresSafeArea()
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                         .environmentObject(information)
                         .tag(view.tag)
